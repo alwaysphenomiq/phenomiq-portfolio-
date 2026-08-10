@@ -638,6 +638,7 @@
   </div>
 </footer>
 
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
 <script>
   lucide.createIcons();
   AOS.init({ once: true, duration: 700, easing: 'ease-out-cubic' });
@@ -703,36 +704,42 @@
   }, { threshold: 0.4 });
   skillEls.forEach(el => skillObserver.observe(el));
 
-  // Contact form -> submits to Formspree, stays on-page with a success message
-  document.getElementById('contactForm').addEventListener('submit', function (e) {
-    e.preventDefault();
-    const form = e.target;
-    const note = document.getElementById('formNote');
-    const submitBtn = form.querySelector('button[type="submit"]');
-    note.classList.remove('hidden');
-    note.textContent = 'Sending your message…';
-    submitBtn.disabled = true;
+  // Contact form -> submits to Supabase, stays on-page with a success message
+const { createClient } = supabase;
+const sb = createClient(
+  "https://ypjfwhxjqzfgkeebkcrv.supabase.co",
+  "sb_publishable_95wTzHJh6vZknOePzLqtYg_-c-Rg8h2"
+);
 
-    fetch(form.action, {
-      method: 'POST',
-      body: new FormData(form),
-      headers: { 'Accept': 'application/json' }
-    })
-      .then(response => {
-        if (response.ok) {
-          note.textContent = "Thanks — your message is in. We'll reply within 24 hours.";
-          form.reset();
-        } else {
-          note.textContent = "Something went wrong. Please try WhatsApp or email us directly.";
-        }
-      })
-      .catch(() => {
-        note.textContent = "Something went wrong. Please try WhatsApp or email us directly.";
-      })
-      .finally(() => {
-        submitBtn.disabled = false;
-      });
-  });
+document.getElementById('contactForm').addEventListener('submit', async function (e) {
+  e.preventDefault();
+  const form = e.target;
+  const note = document.getElementById('formNote');
+  const submitBtn = form.querySelector('button[type="submit"]');
+  note.classList.remove('hidden');
+  note.textContent = 'Sending your message...';
+  submitBtn.disabled = true;
+
+  const firstName = document.getElementById('fname').value.trim();
+  const lastName = document.getElementById('lname').value.trim();
+  const email = document.getElementById('email').value.trim();
+  const message = document.getElementById('msg').value.trim();
+  const fullName = lastName ? `${firstName} ${lastName}` : firstName;
+
+  const { error } = await sb
+    .from('leads')
+    .insert([{ name: fullName, contact: email, message: message }]);
+
+  if (!error) {
+    note.textContent = "Thanks — your message is in. We'll reply within 24 hours.";
+    form.reset();
+  } else {
+    console.error(error);
+    note.textContent = "Something went wrong. Please try WhatsApp or email us directly.";
+  }
+
+  submitBtn.disabled = false;
+});
 </script>
 
 </body>
