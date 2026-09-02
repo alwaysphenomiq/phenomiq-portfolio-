@@ -27,6 +27,8 @@
     <h1 class="text-xl font-bold">Leads</h1>
     <button id="logout-btn" class="text-xs text-mute underline">Log out</button>
   </div>
+  <input id="search-box" type="text" placeholder="Search by name, email, or message..."
+    class="w-full bg-gray-800 rounded-lg px-4 py-3 text-sm outline-none mb-4">
   <div id="leads-list" class="space-y-3"></div>
 </div>
 
@@ -82,7 +84,7 @@
     showLogin();
   });
 
-  async function loadLeads() {
+async function loadLeads() {
     leadsList.innerHTML = "Loading...";
     const { data, error } = await sb
       .from('leads')
@@ -94,10 +96,38 @@
       return;
     }
 
+    allLeads = data;
+    renderLeads(allLeads);
+  }
+
+  function renderLeads(data) {
     if (!data.length) {
-      leadsList.innerHTML = `<p class="text-mute">No leads yet.</p>`;
+      leadsList.innerHTML = `<p class="text-mute">No leads found.</p>`;
       return;
     }
+
+    leadsList.innerHTML = data.map(lead => `
+      <div class="bg-gray-800 rounded-xl p-4 ${lead.contacted ? 'opacity-50' : ''}">
+        <div class="flex justify-between text-xs text-mute mb-2">
+          <span>${new Date(lead.created_at).toLocaleString()}</span>
+          ${lead.contacted ? '<span class="text-emerald-400">✓ Contacted</span>' : ''}
+        </div>
+        <p class="font-semibold">${lead.name}</p>
+        <p class="text-sm text-cyan-400">${lead.contact}</p>
+        <p class="text-sm mt-2">${lead.message}</p>
+        <div class="flex gap-2 mt-3">
+          <button onclick="toggleContacted('${lead.id}', ${lead.contacted})"
+            class="text-xs bg-gray-700 hover:bg-gray-600 rounded-full px-4 py-2">
+            ${lead.contacted ? 'Mark as not contacted' : 'Mark as contacted'}
+          </button>
+          <button onclick="deleteLead('${lead.id}')"
+            class="text-xs bg-red-500/20 text-red-400 hover:bg-red-500/30 rounded-full px-4 py-2">
+            Delete
+          </button>
+        </div>
+      </div>
+    `).join('');
+  }
 
     leadsList.innerHTML = data.map(lead => `
       <div class="bg-gray-800 rounded-xl p-4 ${lead.contacted ? 'opacity-50' : ''}">
@@ -146,6 +176,18 @@
     }
     }
   
+ let allLeads = [];
+
+  document.getElementById('search-box').addEventListener('input', (e) => {
+    const term = e.target.value.toLowerCase();
+    const filtered = allLeads.filter(lead =>
+      lead.name.toLowerCase().includes(term) ||
+      lead.contact.toLowerCase().includes(term) ||
+      lead.message.toLowerCase().includes(term)
+    );
+    renderLeads(filtered);
+  });
+
   checkSession();
 </script>
 </body>
