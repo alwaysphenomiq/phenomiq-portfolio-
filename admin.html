@@ -129,29 +129,6 @@ async function loadLeads() {
     `).join('');
   }
 
-    leadsList.innerHTML = data.map(lead => `
-      <div class="bg-gray-800 rounded-xl p-4 ${lead.contacted ? 'opacity-50' : ''}">
-        <div class="flex justify-between text-xs text-mute mb-2">
-          <span>${new Date(lead.created_at).toLocaleString()}</span>
-          ${lead.contacted ? '<span class="text-emerald-400">✓ Contacted</span>' : ''}
-        </div>
-        <p class="font-semibold">${lead.name}</p>
-        <p class="text-sm text-cyan-400">${lead.contact}</p>
-        <p class="text-sm mt-2">${lead.message}</p>
-                <div class="flex gap-2 mt-3">
-          <button onclick="toggleContacted('${lead.id}', ${lead.contacted})"
-            class="text-xs bg-gray-700 hover:bg-gray-600 rounded-full px-4 py-2">
-            ${lead.contacted ? 'Mark as not contacted' : 'Mark as contacted'}
-          </button>
-          <button onclick="deleteLead('${lead.id}')"
-            class="text-xs bg-red-500/20 text-red-400 hover:bg-red-500/30 rounded-full px-4 py-2">
-            Delete
-          </button>
-        </div>
-      </div>
-    `).join('');
-  }
-
   window.toggleContacted = async function(id, currentStatus) {
     const { error } = await sb
       .from('leads')
