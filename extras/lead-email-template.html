@@ -1,0 +1,44 @@
+<!-- OPTIONAL. Rebranded "new lead" email for your send-lead-email Supabase Edge Function.
+     Replace the old HTML string in the function with this, and fill the {{...}} spots
+     from the lead row. IMPORTANT: escape name, contact and message first (replace
+     & < > " ' with their HTML codes) so nothing a visitor types can run as code.
+     The logo is a PNG on your live site because most email apps block SVG. -->
+<!DOCTYPE html>
+<html lang="en">
+<body style="margin:0;padding:0;background:#F0EAE4;font-family:Inter,Arial,Helvetica,sans-serif;">
+  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#F0EAE4;padding:24px 12px;">
+    <tr><td align="center">
+      <table role="presentation" width="600" cellpadding="0" cellspacing="0" style="max-width:600px;width:100%;background:#0F131A;border-radius:14px;overflow:hidden;">
+        <tr><td style="padding:28px 32px 8px;">
+          <img src="https://phenomiq.com.ng/assets/logos/phenomiq-logo-horizontal-white.png" alt="Phenomiq" width="140" style="display:block;height:auto;border:0;">
+        </td></tr>
+        <tr><td style="padding:16px 32px 0;">
+          <h1 style="margin:0;font-size:28px;line-height:1.1;font-weight:800;letter-spacing:-0.5px;color:#FFFFFF;">New lead from your website</h1>
+        </td></tr>
+        <tr><td style="padding:24px 32px 0;">
+          <p style="margin:0;font-size:12px;font-weight:700;letter-spacing:2.6px;text-transform:uppercase;color:#D9F832;">Name</p>
+          <p style="margin:4px 0 0;font-size:18px;font-weight:700;color:#FFFFFF;">{{name}}</p>
+        </td></tr>
+        <tr><td style="padding:20px 32px 0;">
+          <p style="margin:0;font-size:12px;font-weight:700;letter-spacing:2.6px;text-transform:uppercase;color:#D9F832;">Email</p>
+          <p style="margin:4px 0 0;font-size:18px;color:#FFFFFF;">{{contact}}</p>
+        </td></tr>
+        <tr><td style="padding:20px 32px 0;">
+          <p style="margin:0;font-size:12px;font-weight:700;letter-spacing:2.6px;text-transform:uppercase;color:#D9F832;">Message</p>
+          <p style="margin:4px 0 0;font-size:16px;line-height:1.6;color:#CCCBD6;white-space:pre-wrap;">{{message}}</p>
+        </td></tr>
+        <tr><td style="padding:32px;">
+          <a href="https://phenomiq.com.ng/admin.html" style="display:inline-block;background:#D9F832;color:#0F131A;font-weight:800;font-size:16px;text-decoration:none;padding:14px 28px;border-radius:999px;">Open the dashboard</a>
+        </td></tr>
+        <tr><td style="height:8px;line-height:8px;font-size:0;">
+          <table role="presentation" width="100%" cellpadding="0" cellspacing="0"><tr>
+            <td width="70%" style="background:#0F131A;height:8px;"></td>
+            <td width="20%" style="background:#6633F5;height:8px;"></td>
+            <td width="10%" style="background:#D9F832;height:8px;"></td>
+          </tr></table>
+        </td></tr>
+      </table>
+    </td></tr>
+  </table>
+</body>
+</html>

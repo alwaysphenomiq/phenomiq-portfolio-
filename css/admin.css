@@ -1,0 +1,42 @@
+/* Admin page styles. Uses the same tokens as styles.css (load that file first). */
+body.admin { min-height: 100vh; }
+[hidden] { display: none !important; }
+
+.login { min-height: 100vh; display: grid; place-items: center; padding: var(--s3) 20px; }
+.login-card {
+  width: min(400px, 100%);
+  display: grid; gap: var(--s2);
+  padding: var(--s4);
+  background: var(--surface);
+  border-radius: var(--radius);
+}
+.login-card h1 { font-size: 2rem; }
+.login-card .btn { width: 100%; }
+
+.dash { width: min(860px, 100% - 40px); margin-inline: auto; padding-block: var(--s3) var(--s7); }
+.dash-head { display: flex; align-items: center; justify-content: space-between; gap: var(--s2); margin-bottom: var(--s4); }
+.dash-head .btn { min-height: 44px; padding: .4rem var(--s3); font-size: .9375rem; }
+.dash-title { display: flex; align-items: baseline; justify-content: space-between; gap: var(--s2); margin-bottom: var(--s2); }
+.dash-title h1 { font-size: clamp(2rem, 6vw, 3rem); }
+.dash-title .label { color: var(--mist); }
+
+.field input[type="search"] { margin-bottom: var(--s3); }
+
+.leads { display: grid; gap: var(--s2); }
+.lead {
+  padding: var(--s3);
+  background: var(--surface);
+  border-radius: var(--radius);
+  border-left: 4px solid var(--lime);
+}
+.lead.is-done { border-left-color: var(--slate); opacity: .6; }
+.lead-top { display: flex; flex-wrap: wrap; justify-content: space-between; gap: var(--s1); font-size: .875rem; color: var(--mist); }
+.lead-tag { font-weight: 700; color: var(--lime); }
+.lead-name { margin-top: var(--s1); font-size: 1.25rem; font-weight: 700; color: var(--white); }
+.lead-contact { margin-top: 2px; color: var(--lime); word-break: break-word; }
+.lead-msg { margin-top: var(--s2); color: var(--white); white-space: pre-wrap; word-break: break-word; }
+.lead-actions { margin-top: var(--s3); display: flex; flex-wrap: wrap; gap: var(--s1); }
+.lead-actions .btn { min-height: 44px; padding: .4rem var(--s3); font-size: .9375rem; }
+.btn-danger { background: transparent; color: var(--error); border-color: var(--error); font-weight: 700; }
+.btn-danger:hover { background: var(--error); color: var(--ink); }
+.empty { padding: var(--s5) 0; text-align: center; color: var(--mist); }
