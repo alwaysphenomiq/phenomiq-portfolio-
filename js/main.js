@@ -8,13 +8,47 @@
   var yearEl = document.getElementById('year');
   if (yearEl) yearEl.textContent = String(new Date().getFullYear());
 
-  /* ---------- Header background after scrolling ---------- */
+  /* ---------- Header background after scrolling, and the back-to-top button ---------- */
   var header = document.querySelector('.site-header');
+  var toTop = document.querySelector('.to-top');
   function onScroll() {
     if (header) header.classList.toggle('is-scrolled', window.scrollY > 8);
+    if (toTop) toTop.classList.toggle('is-visible', window.scrollY > 600);
   }
   onScroll();
   window.addEventListener('scroll', onScroll, { passive: true });
+
+  /* Back to top: scroll up, then put keyboard focus back on the logo link so
+     keyboard and screen reader users start again from the top of the page. */
+  if (toTop) {
+    toTop.addEventListener('click', function (e) {
+      e.preventDefault();
+      window.scrollTo({ top: 0 });          /* smooth, unless the visitor prefers reduced motion (CSS) */
+      var brand = document.querySelector('.brand');
+      if (brand) brand.focus({ preventScroll: true });
+    });
+  }
+
+  /* ---------- Dark / light theme ---------- */
+  /* The theme itself is set by a tiny script in <head> (no flash). This wires the button. */
+  var root = document.documentElement;
+  var themeBtn = document.querySelector('.theme-toggle');
+  var themeMeta = document.querySelector('meta[name="theme-color"]');
+
+  function applyTheme(theme, save) {
+    root.setAttribute('data-theme', theme);
+    if (themeMeta) themeMeta.setAttribute('content', theme === 'light' ? '#FFFFFF' : '#0F131A');
+    if (themeBtn) themeBtn.setAttribute('aria-pressed', theme === 'dark' ? 'true' : 'false');
+    if (save) { try { localStorage.setItem('phenomiq-theme', theme); } catch (e) { /* private mode: ignore */ } }
+  }
+
+  if (themeBtn) {
+    applyTheme(root.getAttribute('data-theme') === 'light' ? 'light' : 'dark', false);
+    themeBtn.hidden = false;           /* the button only appears when JavaScript works */
+    themeBtn.addEventListener('click', function () {
+      applyTheme(root.getAttribute('data-theme') === 'light' ? 'dark' : 'light', true);
+    });
+  }
 
   /* ---------- Floating pill menu ---------- */
   var menuBtn = document.querySelector('.menu-btn');
@@ -55,7 +89,7 @@
         if (!entry.isIntersecting) return;
         links.forEach(function (a) { a.removeAttribute('aria-current'); });
         var link = byId[entry.target.id];
-        if (link) link.setAttribute('aria-current', 'true');
+        if (link) link.setAttribute('aria-current', 'location');
       });
     }, { rootMargin: '-45% 0px -50% 0px' });
     Object.keys(byId).forEach(function (id) {
@@ -92,6 +126,18 @@
     return client;
   }
 
+  function clearInvalid() {
+    form.querySelectorAll('[aria-invalid]').forEach(function (el) { el.removeAttribute('aria-invalid'); });
+  }
+  function markInvalid(ids) {
+    ids.forEach(function (id) {
+      var el = document.getElementById(id);
+      if (el) { el.setAttribute('aria-invalid', 'true'); el.setAttribute('aria-describedby', 'form-note'); }
+    });
+    var first = document.getElementById(ids[0]);
+    if (first) first.focus();
+  }
+
   function setNote(html, kind) {
     note.className = 'form-note' + (kind ? ' is-' + kind : '');
     note.innerHTML = html;
@@ -103,6 +149,9 @@
   }
 
   if (form && note) {
+    form.addEventListener('input', function (e) {
+      if (e.target.removeAttribute) e.target.removeAttribute('aria-invalid');
+    });
     form.addEventListener('submit', async function (e) {
       e.preventDefault();
 
@@ -119,8 +168,14 @@
         setNote("Thanks. Your message is in. We'll reply within 24 hours.", 'ok');
         return;
       }
-      if (!firstName || !email || message.length < 10) {
+      clearInvalid();
+      var bad = [];
+      if (!firstName) bad.push('first-name');
+      if (!email || email.indexOf('@') < 1) bad.push('email');
+      if (message.length < 10) bad.push('message');
+      if (bad.length) {
         setNote('Please add your first name, a valid email and a message of at least 10 characters.', 'error');
+        markInvalid(bad);
         return;
       }
 

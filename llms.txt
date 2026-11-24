@@ -1,0 +1,22 @@
+# Phenomiq
+
+> Phenomiq is a web design and development studio in Abeokuta, Ogun State, Nigeria. It builds fast, mobile-first websites, online stores, booking and payment systems, SEO and brand identity for businesses and professionals across Nigeria. Tagline: Design. Develop. Deliver.
+
+Typical delivery: websites go live in 7 to 10 days. Written quotes are sent within 24 hours of an enquiry.
+
+## Pages
+- [Home](https://phenomiq.com.ng/): services, recent projects, how we work, questions and contact form.
+
+## Services
+- Websites for businesses
+- Bookings, forms and payments (Paystack, Flutterwave, receipts)
+- Online stores (catalogue, cart, checkout, WhatsApp ordering)
+- SEO and Google visibility
+- Brand identity
+
+## Contact
+- WhatsApp: +234 812 581 3963 (https://wa.me/2348125813963)
+- Phone: +234 812 649 8491
+- Instagram and TikTok: @alwaysphenomiq
+- Location: Abeokuta, Ogun State, Nigeria
+- Contact form: https://phenomiq.com.ng/#contact
