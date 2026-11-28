@@ -642,3 +642,37 @@ section[id] { scroll-margin-top: calc(var(--header-h) + var(--s1)); }
 .tb-row{padding-block:0 1.5rem}
 .tb-badge{display:inline-flex;align-items:center;background:#F4F1EA;border-radius:12px;padding:.5rem .9rem}
 .tb-badge img{display:block;height:44px;width:auto}
+
+/* Footer legal links */
+.footer-legal { display: flex; flex-wrap: wrap; gap: var(--s1) var(--s3); padding-bottom: var(--s3); font-size: .875rem; }
+.footer-legal a { color: var(--mist); }
+.footer-legal a:hover { color: var(--lime); }
+
+/* Desktop WhatsApp shortcut, stacked above the back-to-top button */
+.wa-float { display: none; }
+@media (min-width: 880px) {
+  .wa-float {
+    position: fixed; z-index: 44; right: 24px; bottom: 88px;
+    display: inline-flex; align-items: center; gap: .5rem;
+    min-height: 48px; padding: 0 1.1rem; border-radius: 999px;
+    background: var(--lime); color: var(--ink); font-weight: 800; text-decoration: none;
+    border: 2px solid var(--ink); box-shadow: var(--shadow);
+  }
+  .wa-float .icon { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+  .wa-float:hover { background: var(--btn-hover-bg); color: var(--btn-hover-fg); }
+  .wa-float:focus-visible { outline-color: var(--focus); outline-offset: 4px; }
+}
+
+/* Hero: real projects on phones (screenshots of sites we built) */
+.hero-phones { position: relative; display: flex; align-items: flex-start; justify-content: center; margin-top: var(--s5); }
+.phone { margin: 0; width: min(44vw, 210px); aspect-ratio: 5 / 7; border-radius: 28px; border: 6px solid #1B2230; background: #1B2230; overflow: hidden; box-shadow: var(--shadow); }
+.phone img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: top center; }
+.phone--b { margin-left: -14%; margin-top: 2.5rem; }
+@media (min-width: 960px) {
+  .hero-grid { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, .8fr); align-items: center; gap: var(--s5); }
+  .hero-grid h1 { font-size: clamp(3rem, 5.8vw, 5rem); }
+  .hero-phones { margin-top: 0; justify-content: flex-end; }
+  .phone { width: clamp(190px, 18vw, 250px); }
+  .phone--b { margin-left: -12%; margin-top: 5rem; }
+}
+.footer-bottom .footer-legal { justify-content: flex-start; padding-top: var(--s2); }
