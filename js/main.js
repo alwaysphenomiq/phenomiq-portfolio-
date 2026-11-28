@@ -156,12 +156,12 @@
       e.preventDefault();
 
       var data = new FormData(form);
-      var firstName = String(data.get('firstName') || '').trim();
-      var lastName = String(data.get('lastName') || '').trim();
+      var fullName = String(data.get('name') || '').trim();
+      var whatsapp = String(data.get('whatsapp') || '').trim();
       var email = String(data.get('email') || '').trim();
       var service = String(data.get('service') || '').trim();
       var message = String(data.get('message') || '').trim();
-      var honeypot = String(data.get('website') || '').trim();
+      var honeypot = String(data.get('hp_check') || '').trim();
 
       if (honeypot) {            /* a bot filled the hidden field: pretend it worked */
         form.reset();
@@ -170,16 +170,24 @@
       }
       clearInvalid();
       var bad = [];
-      if (!firstName) bad.push('first-name');
-      if (!email || email.indexOf('@') < 1) bad.push('email');
+      var digits = whatsapp.replace(/\D/g, '');
+      if (!fullName) bad.push('name');
+      if (!digits && !email) { bad.push('whatsapp'); bad.push('email'); }
+      else {
+        if (whatsapp && digits.length < 10) bad.push('whatsapp');
+        if (email && email.indexOf('@') < 1) bad.push('email');
+      }
       if (message.length < 10) bad.push('message');
       if (bad.length) {
-        setNote('Please add your first name, a valid email and a message of at least 10 characters.', 'error');
+        setNote('Please add your name, a valid WhatsApp number or email, and a message of at least 10 characters.', 'error');
         markInvalid(bad);
         return;
       }
 
-      var fullName = (firstName + ' ' + lastName).trim();
+      var contactParts = [];
+      if (whatsapp) contactParts.push('WhatsApp ' + whatsapp);
+      if (email) contactParts.push(email);
+      var contactInfo = contactParts.join(' | ');
       var fullMessage = service ? 'Needs: ' + service + '\n\n' + message : message;
       var submitBtn = form.querySelector('button[type="submit"]');
       var originalLabel = submitBtn.textContent;
@@ -193,7 +201,7 @@
 
       if (sb) {
         try {
-          var result = await sb.from('leads').insert([{ name: fullName, contact: email, message: fullMessage }]);
+          var result = await sb.from('leads').insert([{ name: fullName, contact: contactInfo, message: fullMessage }]);
           if (result.error) {
             failed = true;
             console.error('Lead insert failed:', result.error);   /* check "code" here if it ever fails */

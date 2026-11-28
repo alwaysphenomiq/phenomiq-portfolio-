@@ -316,8 +316,8 @@
   <div class="glow" aria-hidden="true"><i></i><i></i></div>
   <div class="wrap hero-grid">
    <div class="hero-copy">
-    <h1 id="hero-title" data-in style="--i:0">A website that works as hard as you do.</h1>
-    <p class="lead" data-in style="--i:1">Phenomiq builds fast, mobile-first websites for businesses in Abeokuta and across Nigeria. Live in as little as 7 to 10 days. Most customers find you on their phone, so we build for that first.</p>
+    <h1 id="hero-title" data-in style="--i:0">Get enquiries, bookings and payments from one fast website.</h1>
+    <p class="lead" data-in style="--i:1">Phenomiq builds fast, mobile-first websites for businesses in Abeokuta and across Nigeria, live in as little as 7 to 10 days. Most customers find you on their phone, so every site is built for phones first.</p>
     <div class="hero-cta" data-in style="--i:2">
       <a class="btn" href="#contact">Get a quote in 24 hours</a>
       <a class="btn btn-ghost" href="https://wa.me/2348125813963?text=Hi%20Phenomiq%2C%20I%27d%20like%20to%20start%20a%20project." target="_blank" rel="noopener">Message us on WhatsApp<span class="visually-hidden"> (opens in a new tab)</span></a>
@@ -355,7 +355,7 @@
       <ul class="chips" aria-label="Availability">
         <li class="chip chip--solid">Based in Abeokuta, Ogun State</li>
         <li class="chip chip--solid">Open for projects</li>
-        <li class="chip chip--solid">Freelance available</li>
+        <li class="chip chip--solid">Founder-led studio</li>
       </ul>
 
       <p class="tools-title">Tools we build with</p>
@@ -438,21 +438,6 @@
           </div>
         </div>
       </article>
-
-      <article class="project">
-        <div class="project-media">
-          <img src="assets/work/ewaoluwa.webp" alt="Ewaoluwa's birthday page on a phone" width="720" height="1000" loading="lazy">
-        </div>
-        <div class="project-body">
-          <h3>Ewaoluwa's birthday page</h3>
-          <p>A mobile-first birthday page with a live countdown, wishes sent straight to WhatsApp, a quiz and gift details.</p>
-          <div class="project-foot">
-            <a class="project-link" href="https://worlds-ewaoluwa-day.netlify.app" target="_blank" rel="noopener">Visit the page<span class="visually-hidden"> (opens in a new tab)</span><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></a>
-            <span class="status">Event page</span>
-          </div>
-        </div>
-      </article>
-
       <article class="project">
         <div class="project-media">
           <img src="assets/work/dees-store.webp" alt="Dee's Store home page on a phone" width="720" height="1000" loading="lazy">
@@ -466,6 +451,21 @@
           </div>
         </div>
       </article>
+      <article class="project">
+        <div class="project-media">
+          <img src="assets/work/ewaoluwa.webp" alt="Ewaoluwa's birthday page on a phone" width="720" height="1000" loading="lazy">
+        </div>
+        <div class="project-body">
+          <h3>Ewaoluwa's birthday page</h3>
+          <p>A mobile-first birthday page with a live countdown, wishes sent straight to WhatsApp, a quiz and gift details.</p>
+          <div class="project-foot">
+            <a class="project-link" href="https://worlds-ewaoluwa-day.netlify.app" target="_blank" rel="noopener">Visit the page<span class="visually-hidden"> (opens in a new tab)</span><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></a>
+            <span class="status">Personal project</span>
+          </div>
+        </div>
+      </article>
+
+
     </div>
   </div>
 </section>
@@ -562,19 +562,19 @@
       <h3 id="form-title">Send us a message</h3>
       <form id="contact-form" action="#" method="post" aria-labelledby="form-title">
         <div class="form-grid">
+          <div class="field">
+            <label for="name">Your name</label>
+            <input id="name" name="name" type="text" autocomplete="name" maxlength="120" required>
+          </div>
           <div class="two">
             <div class="field">
-              <label for="first-name">First name</label>
-              <input id="first-name" name="firstName" type="text" autocomplete="given-name" maxlength="60" required>
+              <label for="whatsapp">WhatsApp number</label>
+              <input id="whatsapp" name="whatsapp" type="tel" autocomplete="tel" inputmode="tel" maxlength="30" placeholder="0812 345 6789">
             </div>
             <div class="field">
-              <label for="last-name">Last name <span class="opt">(optional)</span></label>
-              <input id="last-name" name="lastName" type="text" autocomplete="family-name" maxlength="60">
+              <label for="email">Email <span class="opt">(or WhatsApp above)</span></label>
+              <input id="email" name="email" type="email" autocomplete="email" inputmode="email" maxlength="200">
             </div>
-          </div>
-          <div class="field">
-            <label for="email">Email</label>
-            <input id="email" name="email" type="email" autocomplete="email" inputmode="email" maxlength="200" required>
           </div>
           <div class="field">
             <label for="service">What do you need? <span class="opt">(optional)</span></label>
@@ -592,8 +592,8 @@
             <textarea id="message" name="message" minlength="10" maxlength="2000" placeholder="Tell us about your business and what you want to achieve." required></textarea>
           </div>
           <div class="hp" aria-hidden="true">
-            <label for="website">Leave this field empty</label>
-            <input id="website" name="website" type="text" tabindex="-1" autocomplete="off">
+            <label for="hp-check">Leave this field empty</label>
+            <input id="hp-check" name="hp_check" type="text" tabindex="-1" autocomplete="off">
           </div>
         </div>
         <button class="btn" type="submit">Send message</button>
