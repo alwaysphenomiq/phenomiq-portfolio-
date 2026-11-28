@@ -637,3 +637,8 @@ section[id] { scroll-margin-top: calc(var(--header-h) + var(--s1)); }
   .glow i { animation: none; }
   .pill, .pill.is-open { transition: none; }
 }
+
+/* Techbehemoths verification badge: sits on a light pill so its dark text stays readable in both themes */
+.tb-row{padding-block:0 1.5rem}
+.tb-badge{display:inline-flex;align-items:center;background:#F4F1EA;border-radius:12px;padding:.5rem .9rem}
+.tb-badge img{display:block;height:44px;width:auto}
